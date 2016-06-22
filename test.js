@@ -816,11 +816,11 @@ var getCaptcha = function(img) {
 
         for (var i = 0; i < currDubi.length; i++) {
             var mask = keys[currDubi[i]];
-
+            var fl = false;
             for (x = 0; x < img.length; ++x) {
                 for (y = 0; y < img[0].length; ++y) {
                     if (match_mask(x, y, img, mask, tempMask)) {
-                        dubiCount = dubiCount + 1;
+                        fl = true;
                         tempMask = [];
                         for (var l = 0; l < img.length; ++l) {
                             var tt = [];
@@ -832,9 +832,12 @@ var getCaptcha = function(img) {
                     }
                 }
             }
+            if (fl) {
+                dubiCount = dubiCount + 1;
+            }
         }
         
-        if (dubiCount >= currDubi.length) {
+        if (dubiCount == currDubi.length) {
             skipDubious = true;
             break;
         }
